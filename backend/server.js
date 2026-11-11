@@ -4,6 +4,7 @@ require("dotenv").config({ quiet: true }); // lit le fichier .env (en premier)
 const express = require("express");
 const cors = require("cors");
 const pool = require("./db");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,3 +26,5 @@ app.get("/api/test", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Serveur ShoeRoom lancé sur http://localhost:${PORT}`);
 });
+// Routes de l'application
+app.use("/api", authRoutes); // /api/inscription et /api/connexion

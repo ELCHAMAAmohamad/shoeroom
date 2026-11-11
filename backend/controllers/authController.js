@@ -1,0 +1,65 @@
+// controllers/authController.js — logique de l'inscription et de la connexion
+const bcrypt = require("bcryptjs");
+const Utilisateur = require("../models/utilisateurModel");
+
+// POST /api/inscription
+async function inscription(req, res) {
+  try {
+    const { nom, email, motDePasse } = req.body || {}; // "|| {}" : évite une erreur si rien n'est envoyé
+
+    // 1. Vérifier que tous les champs sont remplis
+    if (!nom || !email || !motDePasse) {
+      return res.status(400).json({ message: "Tous les champs sont obligatoires." });
+    }
+    // 2. Vérifier la longueur du mot de passe
+    if (motDePasse.length < 6) {
+      return res.status(400).json({ message: "Le mot de passe doit contenir au moins 6 caractères." });
+    }
+    // 3. Vérifier que l'email n'est pas déjà utilisé
+    if (await Utilisateur.trouverParEmail(email)) {
+      return res.status(409).json({ message: "Cet email est déjà utilisé." });
+    }
+    // 4. Chiffrer le mot de passe, puis enregistrer l'utilisateur
+    const motDePasseChiffre = await bcrypt.hash(motDePasse, 10);
+    const id = await Utilisateur.creer(nom, email, motDePasseChiffre);
+
+    res.status(201).json({ message: "Compte créé.", utilisateur: { id, nom, email, role: "membre" } });
+  } catch (erreur) {
+    console.error(erreur);
+    res.status(500).json({ message: "Erreur du serveur." });
+  }
+}
+
+// POST /api/connexion
+async function connexion(req, res) {
+  try {
+    const { email, motDePasse } = req.body || {}; // "|| {}" : évite une erreur si rien n'est envoyé
+
+    if (!email || !motDePasse) {
+      return res.status(400).json({ message: "Email et mot de passe obligatoires." });
+    }
+    // 1. Chercher l'utilisateur
+    const utilisateur = await Utilisateur.trouverParEmail(email);
+    // 2. Comparer le mot de passe tapé avec le mot de passe chiffré
+    const ok = utilisateur && (await bcrypt.compare(motDePasse, utilisateur.mot_de_passe_util));
+    if (!ok) {
+      // Même message dans les deux cas : on ne dit pas si l'email existe
+      return res.status(401).json({ message: "Email ou mot de passe incorrect." });
+    }
+    // 3. Renvoyer l'utilisateur, sans le mot de passe
+    res.json({
+      message: "Connexion réussie.",
+      utilisateur: {
+        id: utilisateur.id_util,
+        nom: utilisateur.nom_util,
+        email: utilisateur.email_util,
+        role: utilisateur.role_util,
+      },
+    });
+  } catch (erreur) {
+    console.error(erreur);
+    res.status(500).json({ message: "Erreur du serveur." });
+  }
+}
+
+module.exports = { inscription, connexion };

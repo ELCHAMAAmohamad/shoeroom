@@ -1,0 +1,47 @@
+### Test 1 — Inscription (attendu : 201 Compte créé)
+POST http://localhost:3000/api/inscription
+Content-Type: application/json
+
+{
+  "nom": "Sara Martin",
+  "email": "sara@exemple.fr",
+  "motDePasse": "secret123"
+}
+
+### Test 2 — Même email (attendu : 409 déjà utilisé)
+POST http://localhost:3000/api/inscription
+Content-Type: application/json
+
+{
+  "nom": "Sara",
+  "email": "sara@exemple.fr",
+  "motDePasse": "secret123"
+}
+
+### Test 3 — Mot de passe trop court (attendu : 400)
+POST http://localhost:3000/api/inscription
+Content-Type: application/json
+
+{
+  "nom": "Test",
+  "email": "test@exemple.fr",
+  "motDePasse": "123"
+}
+
+### Test 4 — Connexion (attendu : 200 Connexion réussie)
+POST http://localhost:3000/api/connexion
+Content-Type: application/json
+
+{
+  "email": "sara@exemple.fr",
+  "motDePasse": "secret123"
+}
+
+### Test 5 — Mauvais mot de passe (attendu : 401)
+POST http://localhost:3000/api/connexion
+Content-Type: application/json
+
+{
+  "email": "sara@exemple.fr",
+  "motDePasse": "faux"
+}
