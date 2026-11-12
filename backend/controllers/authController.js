@@ -1,11 +1,14 @@
 // controllers/authController.js — logique de l'inscription et de la connexion
+//bcryptjs pour chiffrer les mots de passe à l’inscription avec hash, 
+// et pour les vérifier à la connexion avec compare. 
+// Le mot de passe n’est jamais stocké en clair. »
 const bcrypt = require("bcryptjs");
 const Utilisateur = require("../models/utilisateurModel");
 
 // POST /api/inscription
 async function inscription(req, res) {
   try {
-    const { nom, email, motDePasse } = req.body || {}; // "|| {}" : évite une erreur si rien n'est envoyé
+    const { nom, email, motDePasse } = req.body || {}; //évite une erreur si rien n'est envoyé
 
     // 1. Vérifier que tous les champs sont remplis
     if (!nom || !email || !motDePasse) {

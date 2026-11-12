@@ -2,15 +2,18 @@
 // server.js — point de départ du serveur ShoeRoom
 require("dotenv").config({ quiet: true }); // lit le fichier .env (en premier)
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const pool = require("./db");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());          // autorise les pages HTML à appeler le serveur
 app.use(express.json());  // permet de lire le JSON envoyé par les formulaires
+app.use(express.static(path.join(__dirname, "..", "frontend")));
 
 // Route de test : vérifie que le serveur est relié à MariaDB
 app.get("/api/test", async (req, res) => {
