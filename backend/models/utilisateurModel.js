@@ -9,7 +9,7 @@ async function trouverParEmail(email) {
 }
 
 // Crée un utilisateur et renvoie son id
-async function creer(nom, email, motDePasseChiffre) {
+async function creer(nom,prenom, email, motDePasseChiffre) {
   const resultat = await pool.query(
     "INSERT INTO utilisateurs (nom_util,prenom_util,email_util, mot_de_passe_util) VALUES (?, ?, ?, ?)",[nom,prenom, email, motDePasseChiffre]
   );

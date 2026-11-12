@@ -55,6 +55,7 @@ async function connexion(req, res) {
       utilisateur: {
         id: utilisateur.id_util,
         nom: utilisateur.nom_util,
+        prenom: utilisateur.prenom_util,
         email: utilisateur.email_util,
         role: utilisateur.role_util,
       },
