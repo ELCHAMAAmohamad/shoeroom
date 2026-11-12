@@ -8,10 +8,10 @@ const Utilisateur = require("../models/utilisateurModel");
 // POST /api/inscription
 async function inscription(req, res) {
   try {
-    const { nom, email, motDePasse } = req.body || {}; //évite une erreur si rien n'est envoyé
+    const { nom,prenom, email, motDePasse } = req.body || {}; //évite une erreur si rien n'est envoyé
 
     // 1. Vérifier que tous les champs sont remplis
-    if (!nom || !email || !motDePasse) {
+    if (!nom || !prenom || !email || !motDePasse) {
       return res.status(400).json({ message: "Tous les champs sont obligatoires." });
     }
     // 2. Vérifier la longueur du mot de passe
@@ -24,9 +24,9 @@ async function inscription(req, res) {
     }
     // 4. Chiffrer le mot de passe, puis enregistrer l'utilisateur
     const motDePasseChiffre = await bcrypt.hash(motDePasse, 10);
-    const id = await Utilisateur.creer(nom, email, motDePasseChiffre);
+    const id = await Utilisateur.creer(nom, prenom, email, motDePasseChiffre);
 
-    res.status(201).json({ message: "Compte créé.", utilisateur: { id, nom, email, role: "membre" } });
+    res.status(201).json({ message: "Compte créé.", utilisateur: { id, nom, prenom, email, role: "membre" } });
   } catch (erreur) {
     console.error(erreur);
     res.status(500).json({ message: "Erreur du serveur." });
