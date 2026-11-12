@@ -1,0 +1,145 @@
+
+:root {
+  --fond: #FAF8F5;          /* blanc cassé */
+  --texte: #1C1C1C;         /* noir doux */
+  --accent: #B5835A;        /* camel / cuir */
+  --accent-fonce: #9A6B45;  /* camel au survol */
+  --gris: #8A8A8A;          /* texte secondaire */
+  --bordure: #E4DFD8;       /* bordures légères */
+  --vert: #3E7C59;          /* succès */
+  --rouge: #A32D2D;         /* erreur */
+  --blanc: #FFFFFF;
+  --titre: "Playfair Display", Georgia, serif;
+  --corps: "Inter", Arial, sans-serif;
+}
+
+/* 2. Base de la page */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: var(--corps);
+  line-height: 1.6;
+}
+
+a { color: var(--accent); }
+
+/* 3. En-tête (présent sur toutes les pages) */
+.entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: var(--texte);
+}
+
+.logo {
+  font-family: var(--titre);
+  font-size: 26px;
+  color: var(--blanc);
+  text-decoration: none;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.menu a {
+  color: var(--blanc);
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.menu a:hover { color: var(--accent); }
+
+.menu .bonjour { color: var(--accent); font-size: 15px; }
+
+/* 4. Carte centrée pour les formulaires (connexion, inscription) */
+.page-formulaire {
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.carte {
+  width: 100%;
+  max-width: 420px;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 36px;
+}
+
+.carte h1 {
+  font-family: var(--titre);
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.sous-titre { color: var(--gris); margin: 0 0 24px; }
+
+/* 5. Champs de formulaire */
+.champ { margin-bottom: 18px; }
+
+.champ label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.champ input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: var(--corps);
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  background: var(--fond);
+}
+
+.champ input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--blanc);
+}
+
+/* 6. Boutons */
+.bouton {
+  width: 100%;
+  padding: 13px;
+  font-size: 16px;
+  font-family: var(--corps);
+  font-weight: 600;
+  color: var(--blanc);
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.bouton:hover { background: var(--accent-fonce); }
+.bouton:disabled { opacity: 0.6; cursor: wait; }
+
+/* 7. Messages de succès ou d'erreur sous le formulaire */
+.message { margin-top: 16px; font-size: 14px; min-height: 20px; }
+.message.erreur { color: var(--rouge); }
+.message.succes { color: var(--vert); }
+
+.lien-bas { text-align: center; margin-top: 20px; font-size: 14px; color: var(--gris); }
+
+/* 8. Page d'accueil (provisoire) */
+.accueil { text-align: center; padding: 80px 20px; }
+.accueil h1 { font-family: var(--titre); font-size: 40px; margin: 0 0 12px; }
+.accueil p { color: var(--gris); font-size: 18px; }
+
+/* 9. Téléphone : en-tête sur deux lignes, marges réduites */
+@media (max-width: 600px) {
+  .entete { flex-direction: column; gap: 12px; padding: 16px 20px; }
+  .menu { gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .carte { padding: 24px; }
+}
