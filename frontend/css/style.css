@@ -539,7 +539,113 @@ a { color: var(--accent); }
 .carte-prix { font-size: 18px; font-weight: 600; margin: 0; }
 
 /* =========================================================
-   10. TABLETTE ET TÉLÉPHONE
+   10. PAGE DÉTAIL D'UNE ANNONCE (annonce.html)
+   ========================================================= */
+
+/* L'attribut HTML "hidden" doit toujours cacher l'élément,
+   même si une classe lui donne display: grid ou flex */
+[hidden] { display: none !important; }
+
+.page-detail {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px 80px;
+}
+
+.lien-retour {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: var(--gris);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.lien-retour:hover { color: var(--accent); }
+
+.message-page { color: var(--gris); font-size: 18px; }
+
+/* Deux colonnes : photos à gauche, infos à droite */
+.detail {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* --- Galerie --- */
+.photo-principale {
+  aspect-ratio: 4 / 3;
+  background: #EFEAE3;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gris);
+}
+
+.photo-principale img { width: 100%; height: 100%; object-fit: cover; }
+
+.miniatures { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+
+.miniatures img {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.miniatures img:hover,
+.miniatures img.active { border-color: var(--accent); opacity: 1; }
+
+/* --- Informations --- */
+.detail-infos h1 {
+  font-family: var(--titre);
+  font-size: 36px;
+  line-height: 1.15;
+  margin: 0 0 10px;
+}
+
+.detail-prix { font-size: 28px; font-weight: 600; margin: 0 0 24px; }
+
+.detail-caracteristiques {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  border-top: 1px solid var(--bordure);
+}
+
+.detail-caracteristiques li {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bordure);
+}
+
+.detail-caracteristiques span { color: var(--gris); }
+
+.detail-infos h2 { font-family: var(--titre); font-size: 20px; margin: 0 0 8px; }
+
+.detail-description { color: #4A4A4A; margin: 0 0 28px; white-space: pre-line; }
+
+/* --- Zone d'achat --- */
+.zone-achat .bouton,
+.zone-achat .bouton-principal { width: 100%; text-align: center; }
+
+.info-achat {
+  padding: 14px 18px;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  color: var(--gris);
+  margin: 0;
+}
+
+/* =========================================================
+   11. TABLETTE ET TÉLÉPHONE
    ========================================================= */
 
 /* Tablette : les cartes passent les unes sous les autres */
@@ -547,6 +653,7 @@ a { color: var(--accent); }
   .cartes-parties,
   .etapes { grid-template-columns: 1fr; }
   .page-annonces { grid-template-columns: 1fr; }
+  .detail { grid-template-columns: 1fr; gap: 28px; }
   .nav-principale { gap: 20px; }
 }
 
@@ -561,4 +668,5 @@ a { color: var(--accent); }
   .section { padding: 60px 20px; }
   .section-titre h2,
   .bandeau-action h2 { font-size: 30px; }
+  .detail-infos h1 { font-size: 28px; }
 }
