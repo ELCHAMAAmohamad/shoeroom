@@ -2,6 +2,7 @@
 //bcryptjs pour chiffrer les mots de passe à l’inscription avec hash, 
 // et pour les vérifier à la connexion avec compare. 
 // Le mot de passe n’est jamais stocké en clair. »
+const jwt = require("jsonwebtoken");                              // l'outil pour fabriquer les jetons
 const bcrypt = require("bcryptjs");
 const Utilisateur = require("../models/utilisateurModel");
 
@@ -50,8 +51,15 @@ async function connexion(req, res) {
       return res.status(401).json({ message: "Email ou mot de passe incorrect." });
     }
     // 3. Renvoyer l'utilisateur, sans le mot de passe
+    const jeton = jwt.sign(
+      { id: utilisateur.id_util, role: utilisateur.role_util },   // ce qui est écrit sur le bracelet
+      process.env.JWT_SECRET,                                     // le tampon secret
+      { expiresIn: "8h" }                                         // le bracelet est valable 8 heures
+    );
+    
     res.json({
       message: "Connexion réussie.",
+      jeton, // le bracelet à mettre dans l'en-tête Authorization du navigateur
       utilisateur: {
         id: utilisateur.id_util,
         nom: utilisateur.nom_util,
