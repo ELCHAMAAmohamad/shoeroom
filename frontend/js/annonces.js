@@ -42,7 +42,7 @@ function formaterSize(size) {                                    // "42.0" -> "4
 function creerCarte(annonce) {                                   // renvoie un élément <a> prêt à afficher
   const carte = document.createElement("a");                     // toute la carte est un lien
   carte.className = "carte-annonce";
-  carte.href = "annonce.html?id=" + annonce.id_annonce;          // clic -> page de détail de cette annonce
+  carte.href = "annonce_detail.html?id=" + annonce.id_annonce;          // clic -> page de détail de cette annonce
 
   // Photo (ou un cadre « Pas de photo »)
   const zonePhoto = document.createElement("div");

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Annonce — ShoeRoom</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== EN-TÊTE ===== -->
+  <header class="entete">
+    <a href="index.html" class="logo">ShoeRoom</a>
+    <nav class="nav-principale">
+      <a href="annonces.html" class="actif">Annonces</a>
+      <a href="boutique.html">Boutique</a>
+      <a href="atelier.html">Atelier</a>
+    </nav>
+    <nav class="menu" id="menu">
+      <a href="connexion.html">Connexion</a>
+      <a href="inscription.html" class="lien-bouton">Inscription</a>
+    </nav>
+  </header>
+
+  <main class="page-detail">
+
+    <a href="annonces.html" class="lien-retour">← Retour aux annonces</a>
+
+    <!-- Message affiché si l'annonce n'existe pas ou pendant le chargement -->
+    <p class="message-page" id="message-page">Chargement…</p>
+
+    <!-- Le détail : caché tant que l'annonce n'est pas chargée (rempli par js/annonce.js) -->
+    <article class="detail" id="detail" hidden>
+
+      <!-- Colonne gauche : les photos -->
+      <div class="detail-photos">
+        <div class="photo-principale" id="photo-principale"></div>
+        <div class="miniatures" id="miniatures"></div>
+      </div>
+
+      <!-- Colonne droite : les informations -->
+      <div class="detail-infos">
+        <p class="carte-marque" id="detail-marque"></p>
+        <h1 id="detail-titre"></h1>
+        <p class="detail-prix" id="detail-prix"></p>
+
+        <ul class="detail-caracteristiques">
+          <li><span>Pointure</span><strong id="detail-size"></strong></li>
+          <li><span>État</span><strong id="detail-etat"></strong></li>
+          <li><span>Vendu par</span><strong id="detail-vendeur"></strong></li>
+          <li><span>Publiée le</span><strong id="detail-date"></strong></li>
+        </ul>
+
+        <h2>Description</h2>
+        <p class="detail-description" id="detail-description"></p>
+
+        <!-- Zone d'achat : son contenu dépend de qui regarde l'annonce -->
+        <div class="zone-achat" id="zone-achat"></div>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- ===== PIED DE PAGE ===== -->
+  <footer class="pied">
+    <a href="index.html" class="logo">ShoeRoom</a>
+    <p class="pied-copyright">© 2026 ShoeRoom — Projet M1 IHM 2D</p>
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/annonce_detail.js"></script>
+</body>
+</html>
