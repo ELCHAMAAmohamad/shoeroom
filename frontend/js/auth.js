@@ -10,9 +10,12 @@ function getUtilisateur() {                                      // renvoie l'ut
 function setUtilisateur(utilisateur) {                           // garde l'utilisateur après la connexion
   localStorage.setItem("utilisateur", JSON.stringify(utilisateur)); // objet -> texte, rangé dans le navigateur
 }
-
+function getJeton() {                                            // ← NOUVEAU : renvoie le bracelet, ou null
+  return localStorage.getItem("jeton");                          // ← NOUVEAU : lit le bracelet gardé dans le navigateur
+}   
 function deconnexion() {                                         // déconnecte l'utilisateur
-  localStorage.removeItem("utilisateur");                        // efface l'utilisateur de la mémoire
+  localStorage.removeItem("utilisateur");
+    localStorage.removeItem("jeton");                              // ← NOUVEAU : jette aussi le bracelet                        // efface l'utilisateur de la mémoire
   window.location.replace("index.html");                         // va à l'accueil sans garder la page dans l'historique
 }
 
@@ -85,7 +88,8 @@ if (formConnexion) {                                             // seulement si
       });
 
       if (ok) {                                                  // si la connexion réussit (200)
-        setUtilisateur(resultat.utilisateur);                    // garde l'utilisateur dans le navigateur
+        setUtilisateur(resultat.utilisateur);  
+        localStorage.setItem("jeton", resultat.jeton);             // garde le bracelet dans le navigateur
         afficherMessage("Connexion réussie !", "succes");        // message vert
         setTimeout(() => window.location.replace("index.html"), 800); // après 0,8 s, va à l'accueil
       } else {                                                   // sinon (401)
