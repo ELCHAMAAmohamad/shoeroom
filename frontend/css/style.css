@@ -1,4 +1,8 @@
+/* =========================================================
+   ShoeRoom — style commun à toutes les pages
+   ========================================================= */
 
+/* 1. Les couleurs et polices de la charte, réutilisées partout */
 :root {
   --fond: #FAF8F5;          /* blanc cassé */
   --texte: #1C1C1C;         /* noir doux */
@@ -57,6 +61,32 @@ a { color: var(--accent); }
 .menu a:hover { color: var(--accent); }
 
 .menu .bonjour { color: var(--accent); font-size: 15px; }
+
+/* Bouton « Inscription » dans l'en-tête */
+.menu .lien-bouton {
+  padding: 8px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+}
+
+.menu .lien-bouton:hover { background: var(--accent); color: var(--blanc); }
+
+/* Liens vers les 3 parties (Annonces, Boutique, Atelier) */
+.nav-principale {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-principale a {
+  color: var(--blanc);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.nav-principale a:hover { color: var(--accent); }
 
 /* 4. Carte centrée pour les formulaires (connexion, inscription) */
 .page-formulaire {
@@ -132,14 +162,268 @@ a { color: var(--accent); }
 
 .lien-bas { text-align: center; margin-top: 20px; font-size: 14px; color: var(--gris); }
 
-/* 8. Page d'accueil (provisoire) */
-.accueil { text-align: center; padding: 80px 20px; }
-.accueil h1 { font-family: var(--titre); font-size: 40px; margin: 0 0 12px; }
-.accueil p { color: var(--gris); font-size: 18px; }
+/* =========================================================
+   8. PAGE D'ACCUEIL (index.html)
+   ========================================================= */
 
-/* 9. Téléphone : en-tête sur deux lignes, marges réduites */
+/* --- Bandeau d'accueil (hero) --- */
+.hero {
+  background: var(--texte);
+  color: var(--blanc);
+  text-align: center;
+  padding: 110px 20px 120px;
+  border-top: 1px solid #2E2E2E;
+}
+
+.hero-contenu { max-width: 720px; margin: 0 auto; }
+
+.hero-etiquette {
+  display: inline-block;
+  margin: 0 0 24px;
+  padding: 6px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-family: var(--titre);
+  font-size: 56px;
+  line-height: 1.1;
+  margin: 0 0 20px;
+}
+
+.hero-texte {
+  color: #D9D3CB;
+  font-size: 19px;
+  margin: 0 0 40px;
+}
+
+.hero-boutons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* --- Boutons de l'accueil (liens qui ressemblent à des boutons) --- */
+.bouton-principal,
+.bouton-secondaire {
+  display: inline-block;
+  padding: 14px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.bouton-principal {
+  background: var(--accent);
+  color: var(--blanc);
+}
+
+.bouton-principal:hover { background: var(--accent-fonce); }
+
+.bouton-secondaire {
+  border: 1px solid var(--blanc);
+  color: var(--blanc);
+}
+
+.bouton-secondaire:hover { background: var(--blanc); color: var(--texte); }
+
+/* --- Sections communes --- */
+.section {
+  padding: 90px 40px;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.section-claire {
+  max-width: none;
+  background: var(--blanc);
+  border-top: 1px solid var(--bordure);
+  border-bottom: 1px solid var(--bordure);
+}
+
+.section-titre {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.sur-titre {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.section-titre h2 {
+  font-family: var(--titre);
+  font-size: 38px;
+  margin: 0;
+}
+
+/* --- Les 3 cartes : Annonces, Boutique, Atelier --- */
+.cartes-parties {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.carte-partie {
+  display: flex;
+  flex-direction: column;
+  padding: 36px 32px;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 14px;
+  color: var(--texte);
+  text-decoration: none;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.carte-partie:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+}
+
+.carte-numero {
+  font-family: var(--titre);
+  font-size: 40px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.carte-partie h3 {
+  font-family: var(--titre);
+  font-size: 26px;
+  margin: 0 0 12px;
+}
+
+.carte-partie p {
+  color: var(--gris);
+  margin: 0 0 24px;
+  flex-grow: 1;
+}
+
+.carte-lien {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* La carte Atelier est mise en avant (point fort du projet) */
+.carte-atelier {
+  background: var(--texte);
+  border-color: var(--texte);
+  color: var(--blanc);
+}
+
+.carte-atelier p { color: #D9D3CB; }
+
+/* --- Comment ça marche : 3 étapes --- */
+.etapes {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 1150px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+
+.etape-numero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--titre);
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.etape h3 {
+  font-family: var(--titre);
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+
+.etape p { color: var(--gris); margin: 0; }
+
+/* --- Bandeau final : appel à l'action --- */
+.bandeau-action {
+  text-align: center;
+  padding: 90px 20px;
+}
+
+.bandeau-action h2 {
+  font-family: var(--titre);
+  font-size: 38px;
+  margin: 0 0 12px;
+}
+
+.bandeau-action p {
+  color: var(--gris);
+  font-size: 18px;
+  margin: 0 0 32px;
+}
+
+/* --- Pied de page --- */
+.pied {
+  background: var(--texte);
+  color: var(--gris);
+  text-align: center;
+  padding: 48px 20px;
+}
+
+.pied-liens {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin: 18px 0;
+}
+
+.pied-liens a {
+  color: #D9D3CB;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.pied-liens a:hover { color: var(--accent); }
+
+.pied-copyright { font-size: 13px; margin: 0; }
+
+/* =========================================================
+   9. TABLETTE ET TÉLÉPHONE
+   ========================================================= */
+
+/* Tablette : les cartes passent les unes sous les autres */
+@media (max-width: 900px) {
+  .cartes-parties,
+  .etapes { grid-template-columns: 1fr; }
+  .nav-principale { gap: 20px; }
+}
+
+/* Téléphone : en-tête sur plusieurs lignes, textes plus petits */
 @media (max-width: 600px) {
   .entete { flex-direction: column; gap: 12px; padding: 16px 20px; }
   .menu { gap: 16px; flex-wrap: wrap; justify-content: center; }
   .carte { padding: 24px; }
+  .hero { padding: 70px 20px 80px; }
+  .hero h1 { font-size: 38px; }
+  .hero-texte { font-size: 17px; }
+  .section { padding: 60px 20px; }
+  .section-titre h2,
+  .bandeau-action h2 { font-size: 30px; }
 }
