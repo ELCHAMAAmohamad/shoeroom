@@ -405,13 +405,148 @@ a { color: var(--accent); }
 .pied-copyright { font-size: 13px; margin: 0; }
 
 /* =========================================================
-   9. TABLETTE ET TÉLÉPHONE
+   9. PAGE ANNONCES (annonces.html)
+   ========================================================= */
+
+/* Lien de la page actuelle dans le menu */
+.nav-principale a.actif { color: var(--accent); }
+
+/* Titre de la page */
+.page-titre {
+  background: var(--texte);
+  color: var(--blanc);
+  text-align: center;
+  padding: 50px 20px;
+  border-top: 1px solid #2E2E2E;
+}
+
+.page-titre h1 { font-family: var(--titre); font-size: 42px; margin: 0 0 8px; }
+.page-titre p { color: #D9D3CB; margin: 0; }
+
+/* Mise en page : filtres à gauche, résultats à droite */
+.page-annonces {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* Bloc des filtres */
+.filtres {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 24px;
+  align-self: start;
+}
+
+.filtres h2 { font-family: var(--titre); font-size: 22px; margin: 0 0 18px; }
+
+.champ-double { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.champ select {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: var(--corps);
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  background: var(--fond);
+}
+
+.bouton-lien {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: var(--gris);
+  font-family: var(--corps);
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.bouton-lien:hover { color: var(--texte); }
+
+/* Compteur « 4 annonces » */
+.compteur { color: var(--gris); margin: 0 0 18px; }
+
+/* Grille des cartes */
+.grille-annonces {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+/* Une carte d'annonce */
+.carte-annonce {
+  display: flex;
+  flex-direction: column;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  overflow: hidden;
+  color: var(--texte);
+  text-decoration: none;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.carte-annonce:hover { transform: translateY(-4px); border-color: var(--accent); }
+
+.carte-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #EFEAE3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gris);
+  font-size: 14px;
+}
+
+.carte-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Badge Neuves / Occasion */
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-neuves { background: var(--vert); color: var(--blanc); }
+.badge-occasion { background: var(--blanc); color: var(--texte); border: 1px solid var(--bordure); }
+
+.carte-infos { padding: 16px 18px 20px; }
+
+.carte-marque {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0 0 4px;
+}
+
+.carte-infos h3 { font-family: var(--titre); font-size: 19px; margin: 0 0 6px; }
+.carte-details { color: var(--gris); font-size: 14px; margin: 0 0 12px; }
+.carte-prix { font-size: 18px; font-weight: 600; margin: 0; }
+
+/* =========================================================
+   10. TABLETTE ET TÉLÉPHONE
    ========================================================= */
 
 /* Tablette : les cartes passent les unes sous les autres */
 @media (max-width: 900px) {
   .cartes-parties,
   .etapes { grid-template-columns: 1fr; }
+  .page-annonces { grid-template-columns: 1fr; }
   .nav-principale { gap: 20px; }
 }
 
