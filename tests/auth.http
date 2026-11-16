@@ -3,7 +3,8 @@ POST http://localhost:3000/api/inscription
 Content-Type: application/json
 
 {
-  "nom": "Sara Martin",
+  "prenom": "Sara",
+  "nom": "Martin",
   "email": "sara@exemple.fr",
   "motDePasse": "secret123"
 }
@@ -13,7 +14,8 @@ POST http://localhost:3000/api/inscription
 Content-Type: application/json
 
 {
-  "nom": "Sara",
+  "prenom": "Sara",
+  "nom": "Martin",
   "email": "sara@exemple.fr",
   "motDePasse": "secret123"
 }
@@ -23,12 +25,14 @@ POST http://localhost:3000/api/inscription
 Content-Type: application/json
 
 {
+  "prenom": "Test",
   "nom": "Test",
   "email": "test@exemple.fr",
   "motDePasse": "123"
 }
 
-### Test 4 — Connexion (attendu : 200 Connexion réussie)
+### Test 4 — Connexion (attendu : 200 Connexion réussie + jeton)
+# @name connexion
 POST http://localhost:3000/api/connexion
 Content-Type: application/json
 
@@ -45,3 +49,10 @@ Content-Type: application/json
   "email": "sara@exemple.fr",
   "motDePasse": "faux"
 }
+
+### Test 6 — Vérifier le jeton (attendu : 200 Jeton valide) — lancer le test 4 AVANT
+GET http://localhost:3000/api/moi
+Authorization: Bearer {{connexion.response.body.jeton}}
+
+### Test 7 — Sans jeton (attendu : 401 Vous devez être connecté)
+GET http://localhost:3000/api/moi
