@@ -34,7 +34,7 @@ Content-Type: application/json
 
 {
   "email": "sara@exemple.fr",
-  "motDePasse": "secret123"
+  "motDePasse": "123456"
 }
 
 ### P1 — Sans jeton (attendu : 401)
@@ -141,3 +141,45 @@ Content-Type: image/jpeg
 
 < ./photo-test.jpg
 --LIMITE--
+
+### ===== ACHETER UNE ANNONCE (membre connecté) =====
+
+
+### B0 — Connexion du VENDEUR de l'annonce
+# @name vendeur
+POST http://localhost:3000/api/connexion
+Content-Type: application/json
+
+{
+  "email": "mchamaa22@gmail.com",
+  "motDePasse": "123456"
+}
+
+### B1 — Connexion d'un AUTRE compte (l'acheteur)
+# @name acheteur
+POST http://localhost:3000/api/connexion
+Content-Type: application/json
+
+{
+  "email": "sara@exemple.fr",
+  "motDePasse": "123456"
+}
+
+### B2 — Acheter sans jeton (attendu : 401)
+POST http://localhost:3000/api/annonces/2/acheter
+
+### B3 — Le vendeur achète SA propre annonce (attendu : 403)
+POST http://localhost:3000/api/annonces/2/acheter
+Authorization: Bearer {{vendeur.response.body.jeton}}
+
+### B4 — L'acheteur achète (attendu : 201 « Achat confirmé. »)
+POST http://localhost:3000/api/annonces/2/acheter
+Authorization: Bearer {{acheteur.response.body.jeton}}
+
+### B5 — L'acheteur rachète la même (attendu : 409 « déjà vendue »)
+POST http://localhost:3000/api/annonces/2/acheter
+Authorization: Bearer {{acheteur.response.body.jeton}}
+
+### B6 — Annonce qui n'existe pas (attendu : 404)
+POST http://localhost:3000/api/annonces/9999/acheter
+Authorization: Bearer {{acheteur.response.body.jeton}}

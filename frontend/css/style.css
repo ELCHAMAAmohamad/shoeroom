@@ -644,6 +644,11 @@ a { color: var(--accent); }
   margin: 0;
 }
 
+/* Confirmation d'achat */
+.question-achat { font-weight: 600; margin: 0 0 12px; }
+.boutons-achat .bouton-lien { margin-top: 6px; }
+.succes-achat { color: var(--vert); border-color: var(--vert); }
+
 /* =========================================================
    11. PAGE VENDRE (vendre.html)
    ========================================================= */
