@@ -1,10 +1,10 @@
-// js/annonce.js — page annonce.html : afficher le détail d'une annonce
+// js/annonce_detail.js — page annonce_detail.html : afficher le détail d'une annonce
 
 const messagePage = document.getElementById("message-page");    // « Chargement… » ou message d'erreur
 const detail = document.getElementById("detail");                // le bloc du détail (caché au départ)
 
 // ===== 1. LIRE LE NUMÉRO DE L'ANNONCE DANS L'ADRESSE =====
-// Exemple : annonce_detail.html?id=3  ->  idAnnonce = "3"
+// Exemple : annonce.html?id=3  ->  idAnnonce = "3"
 const idAnnonce = new URLSearchParams(window.location.search).get("id");
 
 // ===== 2. PETITES FONCTIONS DE FORMATAGE =====
@@ -54,7 +54,7 @@ function afficherPhotos(photos, titre) {
 // ===== 4. LA ZONE D'ACHAT (dépend de qui regarde) =====
 function afficherZoneAchat(annonce) {
   const zone = document.getElementById("zone-achat");
-  const utilisateur = getUtilisateur();                           // fonction de auth.js (null si pas connecté)
+  const utilisateur = getUtilisateur();                           // vient de auth.js (null si pas connecté)
 
   if (annonce.statut_annonce === "vendue") {                      // déjà vendue
     zone.innerHTML = '<p class="info-achat">Cette paire a déjà été vendue.</p>';
@@ -63,12 +63,60 @@ function afficherZoneAchat(annonce) {
   } else if (utilisateur.id === annonce.id_vendeur_annonce) {     // c'est le vendeur lui-même
     zone.innerHTML = '<p class="info-achat">C\'est votre annonce.</p>';
   } else {                                                        // membre connecté : il peut acheter
-    zone.innerHTML = '<button class="bouton" id="bouton-acheter">Acheter</button>';
-    // Le clic sur « Acheter » sera branché à l'étape suivante (route /api/annonces/:id/acheter)
+    afficherBoutonAcheter(annonce);
   }
 }
 
-// ===== 5. CHARGER ET AFFICHER L'ANNONCE =====
+// ===== 5. ACHETER EN 2 CLICS : « Acheter » puis « Confirmer » =====
+function afficherBoutonAcheter(annonce) {
+  const zone = document.getElementById("zone-achat");
+  zone.innerHTML = '<button class="bouton" id="bouton-acheter">Acheter</button>';
+  document.getElementById("bouton-acheter").addEventListener("click", () => demanderConfirmation(annonce));
+}
+
+function demanderConfirmation(annonce) {                          // 2e étape : éviter un achat par erreur
+  const zone = document.getElementById("zone-achat");
+  zone.innerHTML = `
+    <p class="question-achat" id="question-achat"></p>
+    <div class="boutons-achat">
+      <button class="bouton" id="bouton-confirmer">Confirmer l'achat</button>
+      <button class="bouton-lien" id="bouton-annuler">Annuler</button>
+    </div>
+    <p class="message" id="message"></p>
+  `;
+  document.getElementById("question-achat").textContent =        // textContent = protection XSS
+    "Acheter « " + annonce.titre_annonce + " » pour " + formaterPrix(annonce.prix_annonce) + " ?";
+  document.getElementById("bouton-annuler").addEventListener("click", () => afficherBoutonAcheter(annonce));
+  document.getElementById("bouton-confirmer").addEventListener("click", () => acheter(annonce));
+}
+
+async function acheter(annonce) {                                 // 3e étape : envoyer l'achat au serveur
+  const bouton = document.getElementById("bouton-confirmer");
+  bouton.disabled = true;                                         // pas de double achat
+
+  try {
+    const reponse = await fetch("/api/annonces/" + annonce.id_annonce + "/acheter", {
+      method: "POST",
+      headers: { Authorization: "Bearer " + getJeton() },         // le jeton dit au serveur QUI achète
+    });
+    const resultat = await reponse.json();
+
+    if (reponse.status === 201) {                                 // achat confirmé
+      document.getElementById("zone-achat").innerHTML =
+        '<p class="info-achat succes-achat">Achat confirmé ! Cette paire est à vous.</p>';
+    } else if (reponse.status === 401) {                          // jeton absent ou expiré
+      afficherMessage(resultat.message + " Redirection…", "erreur");
+      setTimeout(deconnexion, 1500);
+    } else {                                                      // 403 ou 409 : refusé par le serveur
+      afficherMessage(resultat.message, "erreur");
+    }
+  } catch (erreur) {
+    afficherMessage("Impossible de joindre le serveur.", "erreur");
+    bouton.disabled = false;
+  }
+}
+
+// ===== 6. CHARGER ET AFFICHER L'ANNONCE =====
 async function chargerAnnonce() {
   if (!idAnnonce) {                                               // pas de ?id= dans l'adresse
     messagePage.textContent = "Aucune annonce choisie.";
@@ -105,5 +153,5 @@ async function chargerAnnonce() {
   }
 }
 
-// ===== 6. AU CHARGEMENT DE LA PAGE =====
+// ===== 7. AU CHARGEMENT DE LA PAGE =====
 chargerAnnonce();
