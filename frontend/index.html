@@ -13,14 +13,15 @@
   <header class="entete">
     <a href="index.html" class="logo">ShoeRoom</a>
 
-    <!-- Navigation vers les 3 parties du site -->
+    <!-- Navigation vers les 3 parties du site (pour tout le monde) -->
     <nav class="nav-principale">
       <a href="annonces.html">Annonces</a>
       <a href="boutique.html">Boutique</a>
       <a href="atelier.html">Atelier</a>
     </nav>
 
-    <!-- Zone du compte : remplacée par « Bonjour … | Déconnexion » par auth.js -->
+    <!-- Zone du compte : visiteur ici ; si connecté, auth.js la remplace par
+         « Bonjour X | Mon compte | (Administration) | Vendre | Déconnexion » -->
     <nav class="menu" id="menu">
       <a href="connexion.html">Connexion</a>
       <a href="inscription.html" class="lien-bouton">Inscription</a>
@@ -37,15 +38,24 @@
         Vendez vos chaussures, trouvez la paire qu'il vous faut,
         ou créez la vôtre couleur par couleur.
       </p>
-      <div class="hero-boutons">
+
+      <!-- Boutons du VISITEUR -->
+      <div class="hero-boutons pour-visiteur">
         <a href="annonces.html" class="bouton-principal">Voir les annonces</a>
         <a href="atelier.html" class="bouton-secondaire">Créer ma paire</a>
+      </div>
+
+      <!-- Boutons du MEMBRE connecté -->
+      <div class="hero-boutons pour-membre" hidden>
+        <a href="vendre.html" class="bouton-principal">Vendre une paire</a>
+        <a href="annonces.html" class="bouton-secondaire">Voir les annonces</a>
+        <a href="admin.html" class="bouton-secondaire pour-admin" hidden>Gérer la boutique</a>
       </div>
     </div>
   </section>
 
 
-  <!-- ===== 2. LES 3 PARTIES DU SITE ===== -->
+  <!-- ===== 2. LES 3 PARTIES DU SITE (pour tout le monde) ===== -->
   <section class="section">
     <div class="section-titre">
       <p class="sur-titre">Trois façons de trouver chaussure à son pied</p>
@@ -82,8 +92,8 @@
   </section>
 
 
-  <!-- ===== 3. COMMENT ÇA MARCHE ===== -->
-  <section class="section section-claire">
+  <!-- ===== 3. COMMENT ÇA MARCHE (seulement pour le VISITEUR) ===== -->
+  <section class="section section-claire pour-visiteur">
     <div class="section-titre">
       <p class="sur-titre">Simple et rapide</p>
       <h2>Comment ça marche ?</h2>
@@ -110,10 +120,19 @@
 
 
   <!-- ===== 4. APPEL À L'ACTION ===== -->
-  <section class="bandeau-action">
+
+  <!-- Version VISITEUR : on l'invite à créer un compte -->
+  <section class="bandeau-action pour-visiteur">
     <h2>Prêt à créer votre paire ?</h2>
     <p>Rejoignez ShoeRoom et commencez dès maintenant.</p>
     <a href="inscription.html" class="bouton-principal">Créer un compte</a>
+  </section>
+
+  <!-- Version MEMBRE : il a déjà un compte, on l'envoie à l'Atelier -->
+  <section class="bandeau-action pour-membre" hidden>
+    <h2>Prêt à créer votre paire ?</h2>
+    <p>Choisissez un modèle et vos couleurs dans l'Atelier.</p>
+    <a href="atelier.html" class="bouton-principal">Aller à l'Atelier</a>
   </section>
 
 

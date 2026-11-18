@@ -10,12 +10,14 @@ function getUtilisateur() {                                      // renvoie l'ut
 function setUtilisateur(utilisateur) {                           // garde l'utilisateur après la connexion
   localStorage.setItem("utilisateur", JSON.stringify(utilisateur)); // objet -> texte, rangé dans le navigateur
 }
-function getJeton() {                                            // ← NOUVEAU : renvoie le bracelet, ou null
-  return localStorage.getItem("jeton");                          // ← NOUVEAU : lit le bracelet gardé dans le navigateur
-}   
+
+function getJeton() {                                           // renvoie le jeton (badge) de connexion, ou null
+  return localStorage.getItem("jeton");                          // le jeton est déjà du texte : pas de JSON.parse
+}
+
 function deconnexion() {                                         // déconnecte l'utilisateur
-  localStorage.removeItem("utilisateur");
-    localStorage.removeItem("jeton");                              // ← NOUVEAU : jette aussi le bracelet                        // efface l'utilisateur de la mémoire
+  localStorage.removeItem("utilisateur");                        // efface l'utilisateur de la mémoire
+  localStorage.removeItem("jeton");                              // efface aussi le jeton
   window.location.replace("index.html");                         // va à l'accueil sans garder la page dans l'historique
 }
 
@@ -88,8 +90,8 @@ if (formConnexion) {                                             // seulement si
       });
 
       if (ok) {                                                  // si la connexion réussit (200)
-        setUtilisateur(resultat.utilisateur);  
-        localStorage.setItem("jeton", resultat.jeton);             // garde le bracelet dans le navigateur
+        setUtilisateur(resultat.utilisateur);                    // garde l'utilisateur dans le navigateur
+        localStorage.setItem("jeton", resultat.jeton);           // garde le jeton pour les demandes protégées
         afficherMessage("Connexion réussie !", "succes");        // message vert
         setTimeout(() => window.location.replace("index.html"), 800); // après 0,8 s, va à l'accueil
       } else {                                                   // sinon (401)
@@ -114,19 +116,21 @@ function redirigerSiDejaConnecte() {                             // renvoie à l
 redirigerSiDejaConnecte();                                       // vérifie au chargement de la page
 window.addEventListener("pageshow", redirigerSiDejaConnecte);    // vérifie aussi après la flèche « retour » (cache)
 
-// ===== 7. ADAPTER LE MENU SI QUELQU'UN EST CONNECTÉ =====
+// ===== 7. ADAPTER LE MENU SELON QUI EST CONNECTÉ =====
 
 const utilisateur = getUtilisateur();                            // l'utilisateur connecté (ou null)
 const menu = document.getElementById("menu");                    // le menu de l'en-tête
 
 if (utilisateur && menu) {                                       // si quelqu'un est connecté
   menu.innerHTML = `
-    <a href="index.html">Accueil</a>
     <span class="bonjour" id="bonjour"></span>
+    <a href="mon-compte.html">Mon compte</a>
+    <a href="admin.html" class="pour-admin" hidden>Administration</a>
+    <a href="vendre.html" class="lien-bouton">Vendre</a>
     <a href="#" id="lien-deconnexion">Déconnexion</a>
-  `;                                                             // remplace le menu : Accueil | Bonjour | Déconnexion
-  document.getElementById("bonjour").textContent = `Bonjour ${utilisateur.prenom}`; // écrit « Bonjour Sara » (textContent = protection XSS)
-  document.getElementById("lien-deconnexion").addEventListener("click", (e) => { // quand on clique sur « Déconnexion »
+  `;                                                             // Bonjour X | Mon compte | (Administration) | Vendre | Déconnexion
+  document.getElementById("bonjour").textContent = `Bonjour ${utilisateur.prenom}`; // textContent = protection XSS
+  document.getElementById("lien-deconnexion").addEventListener("click", (e) => { // clic sur « Déconnexion »
     e.preventDefault();                                          // empêche le lien "#" de remonter la page
     deconnexion();                                               // déconnecte (partie 1)
   });
@@ -134,5 +138,19 @@ if (utilisateur && menu) {                                       // si quelqu'un
 
 const titreAccueil = document.getElementById("titre-accueil");   // le grand titre (seulement sur index.html)
 if (utilisateur && titreAccueil) {                               // si connecté et sur l'accueil
-  titreAccueil.textContent = `Bonjour ${utilisateur.prenom}`;    // remplace « Bienvenue » par « Bonjour Sara »
+  titreAccueil.textContent = `Bonjour ${utilisateur.prenom}`;    // remplace « Bienvenue » par « Bonjour X »
 }
+
+// ===== 8. MONTRER / CACHER LES BLOCS SELON QUI REGARDE =====
+// Dans le HTML : class="pour-visiteur", "pour-membre" ou "pour-admin" (+ hidden pour membre et admin)
+
+function afficherSelonUtilisateur() {
+  const estConnecte = utilisateur !== null;                      // true si quelqu'un est connecté
+  const estAdmin = estConnecte && utilisateur.role === "admin";  // true seulement pour l'admin
+
+  document.querySelectorAll(".pour-visiteur").forEach((el) => el.hidden = estConnecte);  // visiteur : caché si connecté
+  document.querySelectorAll(".pour-membre").forEach((el) => el.hidden = !estConnecte);   // membre : visible si connecté
+  document.querySelectorAll(".pour-admin").forEach((el) => el.hidden = !estAdmin);       // admin : visible si admin
+}
+
+afficherSelonUtilisateur();                                      // appliqué au chargement de chaque page
