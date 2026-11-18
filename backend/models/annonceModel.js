@@ -64,4 +64,25 @@ async function listerPhotos(idAnnonce) {
   );
 }
 
-module.exports = { lister, trouverParId, listerPhotos };
+// Enregistrer une nouvelle annonce (le vendeur vient du jeton, pas de la page)
+async function creer(annonce, idVendeur) {
+  const resultat = await pool.query(
+    `INSERT INTO annonces
+       (titre_annonce, marque_annonce, size_annonce, prix_annonce,
+        etat_annonce, description_annonce, id_vendeur_annonce)
+     VALUES (?, ?, ?, ?, ?, ?, ?)`,                                // 7 "?" = 7 valeurs, dans le même ordre
+    [annonce.titre, annonce.marque, annonce.size, annonce.prix,
+     annonce.etat, annonce.description || null, idVendeur]        // description vide -> NULL
+  );
+  return Number(resultat.insertId);                                // le numéro de la nouvelle annonce
+}
+
+// Enregistrer une photo liée à une annonce
+async function ajouterPhoto(idAnnonce, nomFichier) {
+  await pool.query(
+    "INSERT INTO photos_annonces (chemin_photo, id_annonce_photo) VALUES (?, ?)",
+    [nomFichier, idAnnonce]                                        // nom du fichier dans backend/uploads
+  );
+}
+
+module.exports = { lister, trouverParId, listerPhotos, creer, ajouterPhoto };
