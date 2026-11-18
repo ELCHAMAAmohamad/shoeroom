@@ -1,10 +1,13 @@
 // routes/annonceRoutes.js — adresses des annonces
 const express = require("express");
-const { listerAnnonces, voirAnnonce } = require("../controllers/annonceController");
+const { listerAnnonces, voirAnnonce, publierAnnonce } = require("../controllers/annonceController");
+const { verifierConnexion } = require("../middlewares/authMiddleware");
+const { recevoirPhotos } = require("../middlewares/uploadPhotos");
 
 const router = express.Router();
 
-router.get("/annonces", listerAnnonces);                            // liste + filtres (public)
-router.get("/annonces/:id", voirAnnonce);                           // détail d'une annonce (public)
+router.get("/annonces", listerAnnonces);                            
+router.get("/annonces/:id", voirAnnonce);                           
+router.post("/annonces", verifierConnexion, recevoirPhotos, publierAnnonce); 
 
 module.exports = router;

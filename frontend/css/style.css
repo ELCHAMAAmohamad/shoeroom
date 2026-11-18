@@ -645,7 +645,83 @@ a { color: var(--accent); }
 }
 
 /* =========================================================
-   11. TABLETTE ET TÉLÉPHONE
+   11. PAGE VENDRE (vendre.html)
+   ========================================================= */
+
+.page-vendre { display: flex; justify-content: center; padding: 40px 20px 80px; }
+
+/* Grande carte blanche qui contient le formulaire */
+.carte-vendre {
+  width: 100%;
+  max-width: 640px;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 36px;
+}
+
+.carte-vendre h2 { font-family: var(--titre); font-size: 22px; margin: 0 0 16px; }
+.carte-vendre h2 + .champ { margin-top: 0; }
+.carte-vendre .apercu-photos + h2 { margin-top: 32px; }
+
+.facultatif { color: var(--gris); font-weight: 400; }
+
+/* Zone de description sur plusieurs lignes */
+.champ textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: var(--corps);
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  background: var(--fond);
+  resize: vertical;
+}
+
+.champ textarea:focus,
+.champ select:focus { outline: none; border-color: var(--accent); background: var(--blanc); }
+
+/* Le vrai champ fichier est caché : on clique sur la grande zone (son label) */
+#photos { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+.zone-photos {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 28px 16px;
+  border: 2px dashed var(--bordure);
+  border-radius: 12px;
+  background: var(--fond);
+  cursor: pointer;
+  text-align: center;
+}
+
+.zone-photos:hover,
+#photos:focus + .zone-photos { border-color: var(--accent); }
+
+.zone-photos-titre { color: var(--accent); font-weight: 600; font-size: 16px; }
+.zone-photos-aide { color: var(--gris); font-size: 13px; font-weight: 400; }
+
+/* Miniatures des photos choisies */
+.apercu-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+}
+
+.apercu-photos img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid transparent;
+}
+
+.apercu-photos img.principale { border-color: var(--accent); }   /* la photo de la carte */
+
+/* =========================================================
+   12. TABLETTE ET TÉLÉPHONE
    ========================================================= */
 
 /* Tablette : les cartes passent les unes sous les autres */
@@ -669,4 +745,5 @@ a { color: var(--accent); }
   .section-titre h2,
   .bandeau-action h2 { font-size: 30px; }
   .detail-infos h1 { font-size: 28px; }
+  .carte-vendre { padding: 24px; }
 }

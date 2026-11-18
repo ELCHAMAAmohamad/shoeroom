@@ -1,0 +1,143 @@
+### ===== LIRE LES ANNONCES (public) =====
+
+### A1 — Toutes les annonces en vente
+GET http://localhost:3000/api/annonces
+
+### A2 — Filtre marque
+GET http://localhost:3000/api/annonces?marque=nike
+
+### A3 — Pointure 42 et neuves
+GET http://localhost:3000/api/annonces?size=42&etat=neuves
+
+### A4 — Prix entre 50 et 70
+GET http://localhost:3000/api/annonces?prixMin=50&prixMax=70
+
+### A5 — Mot-clé
+GET http://localhost:3000/api/annonces?q=boite
+
+### A6 — Aucun résultat (liste vide)
+GET http://localhost:3000/api/annonces?marque=puma
+
+### A7 — Détail de l'annonce 1
+GET http://localhost:3000/api/annonces/1
+
+### A8 — Annonce qui n'existe pas (404)
+GET http://localhost:3000/api/annonces/9999
+
+
+### ===== PUBLIER UNE ANNONCE (membre connecté) =====
+
+### P0 — Se connecter pour avoir un jeton
+# @name connexion
+POST http://localhost:3000/api/connexion
+Content-Type: application/json
+
+{
+  "email": "sara@exemple.fr",
+  "motDePasse": "secret123"
+}
+
+### P1 — Sans jeton (attendu : 401)
+POST http://localhost:3000/api/annonces
+Content-Type: multipart/form-data; boundary=LIMITE
+
+--LIMITE
+Content-Disposition: form-data; name="titre"
+
+Test sans jeton
+--LIMITE--
+
+### P2 — Annonce correcte (attendu : 201 + id)
+POST http://localhost:3000/api/annonces
+Authorization: Bearer {{connexion.response.body.jeton}}
+Content-Type: multipart/form-data; boundary=LIMITE
+
+--LIMITE
+Content-Disposition: form-data; name="titre"
+
+Air Max test
+--LIMITE
+Content-Disposition: form-data; name="marque"
+
+Nike
+--LIMITE
+Content-Disposition: form-data; name="size"
+
+43
+--LIMITE
+Content-Disposition: form-data; name="prix"
+
+55
+--LIMITE
+Content-Disposition: form-data; name="etat"
+
+occasion
+--LIMITE
+Content-Disposition: form-data; name="description"
+
+Annonce de test
+--LIMITE
+Content-Disposition: form-data; name="photos"; filename="photo-test.jpg"
+Content-Type: image/jpeg
+
+< ./photo-test.jpg
+--LIMITE--
+
+### P3 — Sans photo (attendu : 400)
+POST http://localhost:3000/api/annonces
+Authorization: Bearer {{connexion.response.body.jeton}}
+Content-Type: multipart/form-data; boundary=LIMITE
+
+--LIMITE
+Content-Disposition: form-data; name="titre"
+
+Sans photo
+--LIMITE
+Content-Disposition: form-data; name="marque"
+
+Nike
+--LIMITE
+Content-Disposition: form-data; name="size"
+
+42
+--LIMITE
+Content-Disposition: form-data; name="prix"
+
+40
+--LIMITE
+Content-Disposition: form-data; name="etat"
+
+neuves
+--LIMITE--
+
+### P4 — État faux (attendu : 400)
+POST http://localhost:3000/api/annonces
+Authorization: Bearer {{connexion.response.body.jeton}}
+Content-Type: multipart/form-data; boundary=LIMITE
+
+--LIMITE
+Content-Disposition: form-data; name="titre"
+
+Etat faux
+--LIMITE
+Content-Disposition: form-data; name="marque"
+
+Nike
+--LIMITE
+Content-Disposition: form-data; name="size"
+
+42
+--LIMITE
+Content-Disposition: form-data; name="prix"
+
+40
+--LIMITE
+Content-Disposition: form-data; name="etat"
+
+bof
+--LIMITE
+Content-Disposition: form-data; name="photos"; filename="photo-test.jpg"
+Content-Type: image/jpeg
+
+< ./photo-test.jpg
+--LIMITE--
