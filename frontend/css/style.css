@@ -1,0 +1,788 @@
+/* =========================================================
+   ShoeRoom — style commun à toutes les pages
+   ========================================================= */
+
+/* 1. Les couleurs et polices de la charte, réutilisées partout */
+:root {
+  --fond: #FAF8F5;          /* blanc cassé */
+  --texte: #1C1C1C;         /* noir doux */
+  --accent: #B5835A;        /* camel / cuir */
+  --accent-fonce: #9A6B45;  /* camel au survol */
+  --gris: #8A8A8A;          /* texte secondaire */
+  --bordure: #E4DFD8;       /* bordures légères */
+  --vert: #3E7C59;          /* succès */
+  --rouge: #A32D2D;         /* erreur */
+  --blanc: #FFFFFF;
+  --titre: "Playfair Display", Georgia, serif;
+  --corps: "Inter", Arial, sans-serif;
+}
+
+/* 2. Base de la page */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: var(--corps);
+  line-height: 1.6;
+}
+
+a { color: var(--accent); }
+
+/* 3. En-tête (présent sur toutes les pages) */
+.entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: var(--texte);
+}
+
+.logo {
+  font-family: var(--titre);
+  font-size: 26px;
+  color: var(--blanc);
+  text-decoration: none;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.menu a {
+  color: var(--blanc);
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.menu a:hover { color: var(--accent); }
+
+.menu .bonjour { color: var(--accent); font-size: 15px; }
+
+/* Bouton « Inscription » dans l'en-tête */
+.menu .lien-bouton {
+  padding: 8px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+}
+
+.menu .lien-bouton:hover { background: var(--accent); color: var(--blanc); }
+
+/* Liens vers les 3 parties (Annonces, Boutique, Atelier) */
+.nav-principale {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-principale a {
+  color: var(--blanc);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.nav-principale a:hover { color: var(--accent); }
+
+/* 4. Carte centrée pour les formulaires (connexion, inscription) */
+.page-formulaire {
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.carte {
+  width: 100%;
+  max-width: 420px;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 36px;
+}
+
+.carte h1 {
+  font-family: var(--titre);
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.sous-titre { color: var(--gris); margin: 0 0 24px; }
+
+/* 5. Champs de formulaire */
+.champ { margin-bottom: 18px; }
+
+.champ label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.champ input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: var(--corps);
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  background: var(--fond);
+}
+
+.champ input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--blanc);
+}
+
+/* 6. Boutons */
+.bouton {
+  width: 100%;
+  padding: 13px;
+  font-size: 16px;
+  font-family: var(--corps);
+  font-weight: 600;
+  color: var(--blanc);
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.bouton:hover { background: var(--accent-fonce); }
+.bouton:disabled { opacity: 0.6; cursor: wait; }
+
+/* 7. Messages de succès ou d'erreur sous le formulaire */
+.message { margin-top: 16px; font-size: 14px; min-height: 20px; }
+.message.erreur { color: var(--rouge); }
+.message.succes { color: var(--vert); }
+
+.lien-bas { text-align: center; margin-top: 20px; font-size: 14px; color: var(--gris); }
+
+/* =========================================================
+   8. PAGE D'ACCUEIL (index.html)
+   ========================================================= */
+
+/* --- Bandeau d'accueil (hero) --- */
+.hero {
+  background: var(--texte);
+  color: var(--blanc);
+  text-align: center;
+  padding: 110px 20px 120px;
+  border-top: 1px solid #2E2E2E;
+}
+
+.hero-contenu { max-width: 720px; margin: 0 auto; }
+
+.hero-etiquette {
+  display: inline-block;
+  margin: 0 0 24px;
+  padding: 6px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-family: var(--titre);
+  font-size: 56px;
+  line-height: 1.1;
+  margin: 0 0 20px;
+}
+
+.hero-texte {
+  color: #D9D3CB;
+  font-size: 19px;
+  margin: 0 0 40px;
+}
+
+.hero-boutons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* --- Boutons de l'accueil (liens qui ressemblent à des boutons) --- */
+.bouton-principal,
+.bouton-secondaire {
+  display: inline-block;
+  padding: 14px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.bouton-principal {
+  background: var(--accent);
+  color: var(--blanc);
+}
+
+.bouton-principal:hover { background: var(--accent-fonce); }
+
+.bouton-secondaire {
+  border: 1px solid var(--blanc);
+  color: var(--blanc);
+}
+
+.bouton-secondaire:hover { background: var(--blanc); color: var(--texte); }
+
+/* --- Sections communes --- */
+.section {
+  padding: 90px 40px;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.section-claire {
+  max-width: none;
+  background: var(--blanc);
+  border-top: 1px solid var(--bordure);
+  border-bottom: 1px solid var(--bordure);
+}
+
+.section-titre {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.sur-titre {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.section-titre h2 {
+  font-family: var(--titre);
+  font-size: 38px;
+  margin: 0;
+}
+
+/* --- Les 3 cartes : Annonces, Boutique, Atelier --- */
+.cartes-parties {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.carte-partie {
+  display: flex;
+  flex-direction: column;
+  padding: 36px 32px;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 14px;
+  color: var(--texte);
+  text-decoration: none;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.carte-partie:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+}
+
+.carte-numero {
+  font-family: var(--titre);
+  font-size: 40px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.carte-partie h3 {
+  font-family: var(--titre);
+  font-size: 26px;
+  margin: 0 0 12px;
+}
+
+.carte-partie p {
+  color: var(--gris);
+  margin: 0 0 24px;
+  flex-grow: 1;
+}
+
+.carte-lien {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* La carte Atelier est mise en avant (point fort du projet) */
+.carte-atelier {
+  background: var(--texte);
+  border-color: var(--texte);
+  color: var(--blanc);
+}
+
+.carte-atelier p { color: #D9D3CB; }
+
+/* --- Comment ça marche : 3 étapes --- */
+.etapes {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 1150px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+
+.etape-numero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--titre);
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.etape h3 {
+  font-family: var(--titre);
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+
+.etape p { color: var(--gris); margin: 0; }
+
+/* --- Bandeau final : appel à l'action --- */
+.bandeau-action {
+  text-align: center;
+  padding: 90px 20px;
+}
+
+.bandeau-action h2 {
+  font-family: var(--titre);
+  font-size: 38px;
+  margin: 0 0 12px;
+}
+
+.bandeau-action p {
+  color: var(--gris);
+  font-size: 18px;
+  margin: 0 0 32px;
+}
+
+/* --- Pied de page --- */
+.pied {
+  background: var(--texte);
+  color: var(--gris);
+  text-align: center;
+  padding: 48px 20px;
+}
+
+.pied-liens {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin: 18px 0;
+}
+
+.pied-liens a {
+  color: #D9D3CB;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.pied-liens a:hover { color: var(--accent); }
+
+.pied-copyright { font-size: 13px; margin: 0; }
+
+/* =========================================================
+   9. PAGE ANNONCES (annonces.html)
+   ========================================================= */
+
+/* Lien de la page actuelle dans le menu */
+.nav-principale a.actif { color: var(--accent); }
+
+/* Titre de la page */
+.page-titre {
+  background: var(--texte);
+  color: var(--blanc);
+  text-align: center;
+  padding: 50px 20px;
+  border-top: 1px solid #2E2E2E;
+}
+
+.page-titre h1 { font-family: var(--titre); font-size: 42px; margin: 0 0 8px; }
+.page-titre p { color: #D9D3CB; margin: 0; }
+
+/* Mise en page : filtres à gauche, résultats à droite */
+.page-annonces {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* Bloc des filtres */
+.filtres {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 24px;
+  align-self: start;
+}
+
+.filtres h2 { font-family: var(--titre); font-size: 22px; margin: 0 0 18px; }
+
+.champ-double { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.champ select {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: var(--corps);
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  background: var(--fond);
+}
+
+.bouton-lien {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: var(--gris);
+  font-family: var(--corps);
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.bouton-lien:hover { color: var(--texte); }
+
+/* Compteur « 4 annonces » */
+.compteur { color: var(--gris); margin: 0 0 18px; }
+
+/* Grille des cartes */
+.grille-annonces {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+/* Une carte d'annonce */
+.carte-annonce {
+  display: flex;
+  flex-direction: column;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  overflow: hidden;
+  color: var(--texte);
+  text-decoration: none;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.carte-annonce:hover { transform: translateY(-4px); border-color: var(--accent); }
+
+.carte-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #EFEAE3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gris);
+  font-size: 14px;
+}
+
+.carte-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Badge Neuves / Occasion */
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-neuves { background: var(--vert); color: var(--blanc); }
+.badge-occasion { background: var(--blanc); color: var(--texte); border: 1px solid var(--bordure); }
+
+.carte-infos { padding: 16px 18px 20px; }
+
+.carte-marque {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0 0 4px;
+}
+
+.carte-infos h3 { font-family: var(--titre); font-size: 19px; margin: 0 0 6px; }
+.carte-details { color: var(--gris); font-size: 14px; margin: 0 0 12px; }
+.carte-prix { font-size: 18px; font-weight: 600; margin: 0; }
+
+/* =========================================================
+   10. PAGE DÉTAIL D'UNE ANNONCE (annonce.html)
+   ========================================================= */
+
+/* L'attribut HTML "hidden" doit toujours cacher l'élément,
+   même si une classe lui donne display: grid ou flex */
+[hidden] { display: none !important; }
+
+.page-detail {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px 80px;
+}
+
+.lien-retour {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: var(--gris);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.lien-retour:hover { color: var(--accent); }
+
+.message-page { color: var(--gris); font-size: 18px; }
+
+/* Deux colonnes : photos à gauche, infos à droite */
+.detail {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* --- Galerie --- */
+.photo-principale {
+  aspect-ratio: 4 / 3;
+  background: #EFEAE3;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gris);
+}
+
+.photo-principale img { width: 100%; height: 100%; object-fit: cover; }
+
+.miniatures { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+
+.miniatures img {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.miniatures img:hover,
+.miniatures img.active { border-color: var(--accent); opacity: 1; }
+
+/* --- Informations --- */
+.detail-infos h1 {
+  font-family: var(--titre);
+  font-size: 36px;
+  line-height: 1.15;
+  margin: 0 0 10px;
+}
+
+.detail-prix { font-size: 28px; font-weight: 600; margin: 0 0 24px; }
+
+.detail-caracteristiques {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  border-top: 1px solid var(--bordure);
+}
+
+.detail-caracteristiques li {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bordure);
+}
+
+.detail-caracteristiques span { color: var(--gris); }
+
+.detail-infos h2 { font-family: var(--titre); font-size: 20px; margin: 0 0 8px; }
+
+.detail-description { color: #4A4A4A; margin: 0 0 28px; white-space: pre-line; }
+
+/* --- Zone d'achat --- */
+.zone-achat .bouton,
+.zone-achat .bouton-principal { width: 100%; text-align: center; }
+
+.info-achat {
+  padding: 14px 18px;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  color: var(--gris);
+  margin: 0;
+}
+
+/* Confirmation d'achat */
+.question-achat { font-weight: 600; margin: 0 0 12px; }
+.boutons-achat .bouton-lien { margin-top: 6px; }
+.succes-achat { color: var(--vert); border-color: var(--vert); }
+
+/* =========================================================
+   11. PAGE VENDRE (vendre.html)
+   ========================================================= */
+
+.page-vendre { display: flex; justify-content: center; padding: 40px 20px 80px; }
+
+/* Grande carte blanche qui contient le formulaire */
+.carte-vendre {
+  width: 100%;
+  max-width: 640px;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 36px;
+}
+
+.carte-vendre h2 { font-family: var(--titre); font-size: 22px; margin: 0 0 16px; }
+.carte-vendre h2 + .champ { margin-top: 0; }
+.carte-vendre .apercu-photos + h2 { margin-top: 32px; }
+
+.facultatif { color: var(--gris); font-weight: 400; }
+
+/* Zone de description sur plusieurs lignes */
+.champ textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: var(--corps);
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  background: var(--fond);
+  resize: vertical;
+}
+
+.champ textarea:focus,
+.champ select:focus { outline: none; border-color: var(--accent); background: var(--blanc); }
+
+/* Le vrai champ fichier est caché : on clique sur la grande zone (son label) */
+#photos { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+.zone-photos {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 28px 16px;
+  border: 2px dashed var(--bordure);
+  border-radius: 12px;
+  background: var(--fond);
+  cursor: pointer;
+  text-align: center;
+}
+
+.zone-photos:hover,
+#photos:focus + .zone-photos { border-color: var(--accent); }
+
+.zone-photos-titre { color: var(--accent); font-weight: 600; font-size: 16px; }
+.zone-photos-aide { color: var(--gris); font-size: 13px; font-weight: 400; }
+
+/* Miniatures des photos choisies */
+.apercu-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+}
+
+.apercu-photos img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid transparent;
+}
+
+.apercu-photos img.principale { border-color: var(--accent); }   /* la photo de la carte */
+
+/* =========================================================
+   12. PAGE MON COMPTE (mon-compte.html)
+   ========================================================= */
+
+.page-compte { max-width: 1200px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* Les onglets « Mes annonces » / « Mes achats » */
+.onglets { display: flex; gap: 8px; border-bottom: 1px solid var(--bordure); margin-bottom: 24px; }
+
+.onglet {
+  padding: 12px 18px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;                          /* trait sous l'onglet choisi */
+  margin-bottom: -1px;
+  font-family: var(--corps);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gris);
+  cursor: pointer;
+}
+
+.onglet:hover { color: var(--texte); }
+.onglet.actif { color: var(--texte); border-bottom-color: var(--accent); }
+
+/* Ligne « 2 en vente · 1 vendue »  +  bouton « Vendre une paire » */
+.barre-compte { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; }
+.barre-compte .compteur { margin: 0; }
+
+/* Badges de statut */
+.badge-vendue { background: var(--texte); color: var(--blanc); }
+.badge-achetee { background: var(--accent); color: var(--blanc); }
+
+/* =========================================================
+   13. TABLETTE ET TÉLÉPHONE
+   ========================================================= */
+
+/* Tablette : les cartes passent les unes sous les autres */
+@media (max-width: 900px) {
+  .cartes-parties,
+  .etapes { grid-template-columns: 1fr; }
+  .page-annonces { grid-template-columns: 1fr; }
+  .detail { grid-template-columns: 1fr; gap: 28px; }
+  .nav-principale { gap: 20px; }
+}
+
+/* Téléphone : en-tête sur plusieurs lignes, textes plus petits */
+@media (max-width: 600px) {
+  .entete { flex-direction: column; gap: 12px; padding: 16px 20px; }
+  .menu { gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .carte { padding: 24px; }
+  .hero { padding: 70px 20px 80px; }
+  .hero h1 { font-size: 38px; }
+  .hero-texte { font-size: 17px; }
+  .section { padding: 60px 20px; }
+  .section-titre h2,
+  .bandeau-action h2 { font-size: 30px; }
+  .detail-infos h1 { font-size: 28px; }
+  .carte-vendre { padding: 24px; }
+  .barre-compte { flex-direction: column; align-items: flex-start; }
+}

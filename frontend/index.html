@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShoeRoom — Annonces, boutique et atelier de chaussures</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== EN-TÊTE ===== -->
+  <header class="entete">
+    <a href="index.html" class="logo">ShoeRoom</a>
+
+    <!-- Navigation vers les 3 parties du site (pour tout le monde) -->
+    <nav class="nav-principale">
+      <a href="annonces.html">Annonces</a>
+      <a href="boutique.html">Boutique</a>
+      <a href="atelier.html">Atelier</a>
+    </nav>
+
+    <!-- Zone du compte : visiteur ici ; si connecté, auth.js la remplace par
+         « Bonjour X | Mon compte | (Administration) | Vendre | Déconnexion » -->
+    <nav class="menu" id="menu">
+      <a href="connexion.html">Connexion</a>
+      <a href="inscription.html" class="lien-bouton">Inscription</a>
+    </nav>
+  </header>
+
+
+  <!-- ===== 1. BANDEAU D'ACCUEIL ===== -->
+  <section class="hero">
+    <div class="hero-contenu">
+      <p class="hero-etiquette">Projet M1 IHM 2D</p>
+      <h1 id="titre-accueil">Bienvenue sur ShoeRoom</h1>
+      <p class="hero-texte">
+        Vendez vos chaussures, trouvez la paire qu'il vous faut,
+        ou créez la vôtre couleur par couleur.
+      </p>
+
+      <!-- Boutons du VISITEUR -->
+      <div class="hero-boutons pour-visiteur">
+        <a href="annonces.html" class="bouton-principal">Voir les annonces</a>
+        <a href="atelier.html" class="bouton-secondaire">Créer ma paire</a>
+      </div>
+
+      <!-- Boutons du MEMBRE connecté -->
+      <div class="hero-boutons pour-membre" hidden>
+        <a href="vendre.html" class="bouton-principal">Vendre une paire</a>
+        <a href="annonces.html" class="bouton-secondaire">Voir les annonces</a>
+        <a href="admin.html" class="bouton-secondaire pour-admin" hidden>Gérer la boutique</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 2. LES 3 PARTIES DU SITE (pour tout le monde) ===== -->
+  <section class="section">
+    <div class="section-titre">
+      <p class="sur-titre">Trois façons de trouver chaussure à son pied</p>
+      <h2>Annonces, Boutique, Atelier</h2>
+    </div>
+
+    <div class="cartes-parties">
+
+      <!-- Carte 1 : Annonces -->
+      <a href="annonces.html" class="carte-partie">
+        <span class="carte-numero">01</span>
+        <h3>Annonces</h3>
+        <p>Vendez les chaussures que vous ne portez plus et achetez celles des autres membres, neuves ou d'occasion.</p>
+        <span class="carte-lien">Parcourir les annonces →</span>
+      </a>
+
+      <!-- Carte 2 : Boutique -->
+      <a href="boutique.html" class="carte-partie">
+        <span class="carte-numero">02</span>
+        <h3>Boutique ShoeRoom</h3>
+        <p>Les modèles de nos marques, sélectionnés par ShoeRoom et disponibles dans toutes les pointures.</p>
+        <span class="carte-lien">Voir la boutique →</span>
+      </a>
+
+      <!-- Carte 3 : Atelier (mise en avant) -->
+      <a href="atelier.html" class="carte-partie carte-atelier">
+        <span class="carte-numero">03</span>
+        <h3>Atelier</h3>
+        <p>Choisissez un modèle, puis la couleur du dessus, du bout, de la semelle et des lacets. Votre paire change en direct.</p>
+        <span class="carte-lien">Créer ma paire →</span>
+      </a>
+
+    </div>
+  </section>
+
+
+  <!-- ===== 3. COMMENT ÇA MARCHE (seulement pour le VISITEUR) ===== -->
+  <section class="section section-claire pour-visiteur">
+    <div class="section-titre">
+      <p class="sur-titre">Simple et rapide</p>
+      <h2>Comment ça marche ?</h2>
+    </div>
+
+    <ol class="etapes">
+      <li class="etape">
+        <span class="etape-numero">1</span>
+        <h3>Créez votre compte</h3>
+        <p>Une inscription en moins d'une minute : prénom, nom, email et mot de passe.</p>
+      </li>
+      <li class="etape">
+        <span class="etape-numero">2</span>
+        <h3>Vendez ou achetez</h3>
+        <p>Publiez une annonce avec vos photos, ou filtrez par marque, pointure, prix et état.</p>
+      </li>
+      <li class="etape">
+        <span class="etape-numero">3</span>
+        <h3>Créez votre paire</h3>
+        <p>Dans l'Atelier, personnalisez un modèle de la boutique et commandez une paire unique.</p>
+      </li>
+    </ol>
+  </section>
+
+
+  <!-- ===== 4. APPEL À L'ACTION ===== -->
+
+  <!-- Version VISITEUR : on l'invite à créer un compte -->
+  <section class="bandeau-action pour-visiteur">
+    <h2>Prêt à créer votre paire ?</h2>
+    <p>Rejoignez ShoeRoom et commencez dès maintenant.</p>
+    <a href="inscription.html" class="bouton-principal">Créer un compte</a>
+  </section>
+
+  <!-- Version MEMBRE : il a déjà un compte, on l'envoie à l'Atelier -->
+  <section class="bandeau-action pour-membre" hidden>
+    <h2>Prêt à créer votre paire ?</h2>
+    <p>Choisissez un modèle et vos couleurs dans l'Atelier.</p>
+    <a href="atelier.html" class="bouton-principal">Aller à l'Atelier</a>
+  </section>
+
+
+  <!-- ===== PIED DE PAGE ===== -->
+  <footer class="pied">
+    <a href="index.html" class="logo">ShoeRoom</a>
+    <nav class="pied-liens">
+      <a href="annonces.html">Annonces</a>
+      <a href="boutique.html">Boutique</a>
+      <a href="atelier.html">Atelier</a>
+    </nav>
+    <p class="pied-copyright">© 2026 ShoeRoom — Projet M1 IHM 2D</p>
+  </footer>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

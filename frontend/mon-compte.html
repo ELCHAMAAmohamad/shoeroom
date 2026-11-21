@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon compte — ShoeRoom</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== EN-TÊTE ===== -->
+  <header class="entete">
+    <a href="index.html" class="logo">ShoeRoom</a>
+    <nav class="nav-principale">
+      <a href="annonces.html">Annonces</a>
+      <a href="boutique.html">Boutique</a>
+      <a href="atelier.html">Atelier</a>
+    </nav>
+    <nav class="menu" id="menu">
+      <a href="connexion.html">Connexion</a>
+      <a href="inscription.html" class="lien-bouton">Inscription</a>
+    </nav>
+  </header>
+
+  <!-- ===== TITRE DE LA PAGE ===== -->
+  <section class="page-titre">
+    <h1>Mon compte</h1>
+    <p id="infos-compte"></p>
+  </section>
+
+  <main class="page-compte">
+
+    <!-- Les onglets : un clic montre une partie et cache l'autre -->
+    <div class="onglets" role="tablist">
+      <button class="onglet actif" id="onglet-annonces" role="tab" aria-selected="true">Mes annonces <span id="nb-annonces"></span></button>
+      <button class="onglet" id="onglet-achats" role="tab" aria-selected="false">Mes achats <span id="nb-achats"></span></button>
+    </div>
+
+    <!-- Partie 1 : mes annonces (remplie par js/mon-compte.js) -->
+    <section id="panneau-annonces" role="tabpanel">
+      <div class="barre-compte">
+        <p class="compteur" id="resume-annonces">Chargement…</p>
+        <a href="vendre.html" class="bouton-principal">Vendre une paire</a>
+      </div>
+      <div class="grille-annonces" id="grille-mes-annonces"></div>
+    </section>
+
+    <!-- Partie 2 : mes achats (remplie par js/mon-compte.js) -->
+    <section id="panneau-achats" role="tabpanel" hidden>
+      <p class="compteur" id="resume-achats">Chargement…</p>
+      <div class="grille-annonces" id="grille-mes-achats"></div>
+    </section>
+
+  </main>
+
+  <!-- ===== PIED DE PAGE ===== -->
+  <footer class="pied">
+    <a href="index.html" class="logo">ShoeRoom</a>
+    <p class="pied-copyright">© 2026 ShoeRoom — Projet M1 IHM 2D</p>
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/mon-compte.js"></script>
+</body>
+</html>

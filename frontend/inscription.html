@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription — ShoeRoom</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- En-tête commun -->
+  <header class="entete">
+    <a href="index.html" class="logo">ShoeRoom</a>
+    <nav class="menu" id="menu">
+      <a href="index.html">Accueil</a>
+      <a href="connexion.html">Connexion</a>
+    </nav>
+  </header>
+
+  <!-- Formulaire d'inscription -->
+  <main class="page-formulaire">
+    <div class="carte">
+      <h1>Créer un compte</h1>
+      <p class="sous-titre">Vendez, achetez et créez vos chaussures.</p>
+
+      <form id="form-inscription">
+        <div class="champ">
+  <label for="prenom">Prénom</label>
+  <input type="text" id="prenom" placeholder="Votre prénom" required>
+</div>
+        <div class="champ">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" placeholder="nom" required>
+        </div>
+        <div class="champ">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="email" required>
+        </div>
+        <div class="champ">
+          <label for="motDePasse">Mot de passe</label>
+          <input type="password" id="motDePasse" placeholder="6 caractères minimum" minlength="6" required>
+        </div>
+        <button type="submit" class="bouton">Créer mon compte</button>
+        <p class="message" id="message"></p>
+      </form>
+
+      <p class="lien-bas">Déjà un compte ? <a href="connexion.html">Se connecter</a></p>
+    </div>
+  </main>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

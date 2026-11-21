@@ -1,0 +1,89 @@
+### Test 1 — Inscription (attendu : 201 Compte créé)
+POST http://localhost:3000/api/inscription
+Content-Type: application/json
+
+{
+  "prenom": "Sara",
+  "nom": "Martin",
+  "email": "sara@exemple.fr",
+  "motDePasse": "secret123"
+}
+
+### Test 2 — Même email (attendu : 409 déjà utilisé)
+POST http://localhost:3000/api/inscription
+Content-Type: application/json
+
+{
+  "prenom": "Sara",
+  "nom": "Martin",
+  "email": "sara@exemple.fr",
+  "motDePasse": "secret123"
+}
+
+### Test 3 — Mot de passe trop court (attendu : 400)
+POST http://localhost:3000/api/inscription
+Content-Type: application/json
+
+{
+  "prenom": "Test",
+  "nom": "Test",
+  "email": "test@exemple.fr",
+  "motDePasse": "123"
+}
+
+### Test 4 — Connexion (attendu : 200 Connexion réussie + jeton)
+# @name connexion
+POST http://localhost:3000/api/connexion
+Content-Type: application/json
+
+{
+  "email": "sara@exemple.fr",
+  "motDePasse": "secret123"
+}
+
+### Test 5 — Mauvais mot de passe (attendu : 401)
+POST http://localhost:3000/api/connexion
+Content-Type: application/json
+
+{
+  "email": "sara@exemple.fr",
+  "motDePasse": "faux"
+}
+
+### Test 6 — Vérifier le jeton (attendu : 200 Jeton valide) — lancer le test 4 AVANT
+GET http://localhost:3000/api/moi
+Authorization: Bearer {{connexion.response.body.jeton}}
+
+### Test 7 — Sans jeton (attendu : 401 Vous devez être connecté)
+GET http://localhost:3000/api/moi
+
+
+
+
+
+### Test A1 — Toutes les annonces en vente (attendu : 200 + liste)
+GET http://localhost:3000/api/annonces
+
+### Test A2 — Filtre marque (attendu : seulement les Nike)
+GET http://localhost:3000/api/annonces?marque=nike
+
+### Test A3 — Pointure 42 et neuves (attendu : Air Force 1)
+GET http://localhost:3000/api/annonces?size=42&etat=neuves
+
+### Test A4 — Prix entre 50 et 70 € (attendu : Air Max 90 et Air Force 1)
+GET http://localhost:3000/api/annonces?prixMin=50&prixMax=70
+
+### Test A5 — Recherche par mot-clé (attendu : Stan Smith)
+GET http://localhost:3000/api/annonces?q=boite
+
+### Test A6 — Aucun résultat (attendu : 200 + liste vide [])
+GET http://localhost:3000/api/annonces?marque=puma
+
+### Test A7 — Détail d'une annonce (attendu : 200 + l'annonce et ses photos)
+GET http://localhost:3000/api/annonces/1
+
+### Test A8 — Annonce qui n'existe pas (attendu : 404)
+GET http://localhost:3000/api/annonces/9999
+
+
+
