@@ -79,4 +79,21 @@ async function ajouterPhoto(idAnnonce, nomFichier) {
   );
 }
 
-module.exports = { lister, trouverParId, listerPhotos, creer, ajouterPhoto };
+async function listerParVendeur(idVendeur) {
+  return pool.query(
+    `SELECT a.id_annonce, a.titre_annonce, a.marque_annonce, a.size_annonce,
+            a.prix_annonce, a.etat_annonce, a.statut_annonce, a.date_publication_annonce,
+            (SELECT chemin_photo FROM photos_annonces p
+              WHERE p.id_annonce_photo = a.id_annonce
+              ORDER BY p.id_photo LIMIT 1) AS photo
+     FROM annonces a
+     WHERE a.id_vendeur_annonce = ?
+     ORDER BY a.date_publication_annonce DESC`,                   
+    [idVendeur]
+  );
+}
+
+
+
+
+module.exports = { lister, trouverParId, listerPhotos, creer, ajouterPhoto,listerParVendeur};

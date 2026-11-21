@@ -1,0 +1,25 @@
+### ===== MON COMPTE (membre connecté) =====
+
+### C0 — Connexion (Sara)
+# @name moi
+POST http://localhost:3000/api/connexion
+Content-Type: application/json
+
+{
+  "email": "sara@exemple.fr",
+  "motDePasse": "123456"
+}
+
+### C1 — Mes annonces SANS jeton (attendu : 401)
+GET http://localhost:3000/api/moi/annonces
+
+### C2 — Mes annonces (attendu : 200 + liste, en vente ET vendues)
+GET http://localhost:3000/api/moi/annonces
+Authorization: Bearer {{moi.response.body.jeton}}
+
+### C3 — Mes achats SANS jeton (attendu : 401)
+GET http://localhost:3000/api/moi/achats
+
+### C4 — Mes achats (attendu : 200 + liste)
+GET http://localhost:3000/api/moi/achats
+Authorization: Bearer {{moi.response.body.jeton}}

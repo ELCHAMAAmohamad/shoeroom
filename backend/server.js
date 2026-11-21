@@ -5,6 +5,7 @@ const cors = require("cors");
 const pool = require("./db");
 const authRoutes = require("./routes/authRoutes");
 const annonceRoutes = require("./routes/annonceRoutes");
+const compteRoutes = require("./routes/compteRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,7 +29,7 @@ app.get("/api/test", async (req, res) => {
 
 app.use("/api", authRoutes); 
 app.use("/api", annonceRoutes); 
-
+app.use("/api", compteRoutes);
 app.listen(PORT, () => {
   console.log(`Serveur ShoeRoom lancé sur http://localhost:${PORT}`);
 });
