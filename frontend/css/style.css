@@ -726,7 +726,40 @@ a { color: var(--accent); }
 .apercu-photos img.principale { border-color: var(--accent); }   /* la photo de la carte */
 
 /* =========================================================
-   12. TABLETTE ET TÉLÉPHONE
+   12. PAGE MON COMPTE (mon-compte.html)
+   ========================================================= */
+
+.page-compte { max-width: 1200px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* Les onglets « Mes annonces » / « Mes achats » */
+.onglets { display: flex; gap: 8px; border-bottom: 1px solid var(--bordure); margin-bottom: 24px; }
+
+.onglet {
+  padding: 12px 18px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;                          /* trait sous l'onglet choisi */
+  margin-bottom: -1px;
+  font-family: var(--corps);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gris);
+  cursor: pointer;
+}
+
+.onglet:hover { color: var(--texte); }
+.onglet.actif { color: var(--texte); border-bottom-color: var(--accent); }
+
+/* Ligne « 2 en vente · 1 vendue »  +  bouton « Vendre une paire » */
+.barre-compte { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; }
+.barre-compte .compteur { margin: 0; }
+
+/* Badges de statut */
+.badge-vendue { background: var(--texte); color: var(--blanc); }
+.badge-achetee { background: var(--accent); color: var(--blanc); }
+
+/* =========================================================
+   13. TABLETTE ET TÉLÉPHONE
    ========================================================= */
 
 /* Tablette : les cartes passent les unes sous les autres */
@@ -751,4 +784,5 @@ a { color: var(--accent); }
   .bandeau-action h2 { font-size: 30px; }
   .detail-infos h1 { font-size: 28px; }
   .carte-vendre { padding: 24px; }
+  .barre-compte { flex-direction: column; align-items: flex-start; }
 }
