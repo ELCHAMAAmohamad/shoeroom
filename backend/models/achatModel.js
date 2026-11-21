@@ -30,4 +30,20 @@ async function acheter(idAnnonce, idAcheteur) {
   }
 }
 
-module.exports = { acheter };
+async function listerParAcheteur(idAcheteur) {
+  return pool.query(
+    `SELECT ac.id_achat, ac.date_achat,
+            a.id_annonce, a.titre_annonce, a.marque_annonce, a.size_annonce, a.prix_annonce,
+            u.prenom_util AS vendeur,
+            (SELECT chemin_photo FROM photos_annonces p
+              WHERE p.id_annonce_photo = a.id_annonce
+              ORDER BY p.id_photo LIMIT 1) AS photo
+     FROM achats ac
+     JOIN annonces a ON a.id_annonce = ac.id_annonce_achat
+     JOIN utilisateurs u ON u.id_util = a.id_vendeur_annonce
+     WHERE ac.id_acheteur_achat = ?
+     ORDER BY ac.date_achat DESC`,                                
+    [idAcheteur]
+  );
+}
+module.exports = { acheter, listerParAcheteur };
