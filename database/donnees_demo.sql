@@ -22,34 +22,12 @@ INSERT INTO annonces (id_annonce, titre_annonce, marque_annonce, size_annonce, p
 (11, 'Chuck Taylor basses blanches', 'Converse', 37, 35.00, 'occasion', 'Toile blanche lavée, semelle un peu jaunie. Idéales pour l''été.', 'vendue', '2026-11-17 18:20:00', 7),
 (12, '574 grises', 'New Balance', 45, 65.00, 'occasion', 'Daim et mesh gris, très bon état, portées pour le sport en salle seulement.', 'en vente', '2026-11-18 09:10:00', 6);
 
--- 3. PHOTOS DES ANNONCES (1 à 3 par annonce ; fichiers dans backend/uploads)
+-- 3. PHOTOS DES ANNONCES (1 vraie photo par annonce ; fichiers dans backend/uploads)
 INSERT INTO photos_annonces (chemin_photo, id_annonce_photo) VALUES
-('annonce-01-1.jpg', 1),
-('annonce-01-2.jpg', 1),
-('annonce-01-3.jpg', 1),
-('annonce-02-1.jpg', 2),
-('annonce-02-2.jpg', 2),
-('annonce-03-1.jpg', 3),
-('annonce-03-2.jpg', 3),
-('annonce-03-3.jpg', 3),
-('annonce-04-1.jpg', 4),
-('annonce-04-2.jpg', 4),
-('annonce-05-1.jpg', 5),
-('annonce-05-2.jpg', 5),
-('annonce-05-3.jpg', 5),
-('annonce-06-1.jpg', 6),
-('annonce-06-2.jpg', 6),
-('annonce-07-1.jpg', 7),
-('annonce-07-2.jpg', 7),
-('annonce-07-3.jpg', 7),
-('annonce-08-1.jpg', 8),
-('annonce-09-1.jpg', 9),
-('annonce-09-2.jpg', 9),
-('annonce-10-1.jpg', 10),
-('annonce-10-2.jpg', 10),
-('annonce-11-1.jpg', 11),
-('annonce-12-1.jpg', 12),
-('annonce-12-2.jpg', 12);
+('annonce-01-1.jpg', 1), ('annonce-02-1.jpg', 2), ('annonce-03-1.jpg', 3),
+('annonce-04-1.jpg', 4), ('annonce-05-1.jpg', 5), ('annonce-06-1.jpg', 6),
+('annonce-07-1.jpg', 7), ('annonce-08-1.jpg', 8), ('annonce-09-1.jpg', 9),
+('annonce-10-1.jpg', 10), ('annonce-11-1.jpg', 11), ('annonce-12-1.jpg', 12);
 
 -- 4. ACHATS (les 3 annonces vendues)
 INSERT INTO achats (id_achat, date_achat, id_annonce_achat, id_acheteur_achat) VALUES
